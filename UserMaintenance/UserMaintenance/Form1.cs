@@ -14,7 +14,8 @@ namespace UserMaintenance
 {
     public partial class Form1 : Form
     {
-        BindingList<User> users = new BindingList<User>();
+        public BindingList<User> users = new BindingList<User>();
+        
         public Form1()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace UserMaintenance
             
             button1.Text = Resource1.Add; // button1
             button2.Text = Resource1.Write;
+            button3.Text = Resource1.Delete;
 
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
@@ -50,10 +52,26 @@ namespace UserMaintenance
                 { sw.WriteLine(u.ID + "; " + u.FullName);
                      
                     }
-                
 
                 sw.Close();
+
             }
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            User u2 = (User)listBox1.SelectedItem;
+
+            var u = from s in users
+                     where s.ID == u2.ID
+                     select s;
+
+            users.Remove(u.FirstOrDefault());
+                    
+                
+            
+
         }
     }
 }
